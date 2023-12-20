@@ -90,6 +90,7 @@ plot_titles <- list(
   Daten: **Google Trends** (Websuche Deutschland) | Visualisierung: **Ansgar Wolsing**")
 
 g <- df_plot %>% 
+  mutate(keyword = fct_reorder(keyword, -y)) %>% 
   ggplot(aes(date, y, group = keyword)) +
   geom_ribbon(
     aes(ymin = added, ymax = y, fill = factor(row %% length(google_colors))),
@@ -127,7 +128,7 @@ g <- df_plot %>%
     axis.text.x = element_text(hjust = 0, color = "grey80"),
     plot.background = element_rect(color = NA, fill = "grey8"),
     panel.grid.major.x = element_blank(),
-    panel.grid.major.y = element_line(size = 0.1, color = "grey94"),
+    panel.grid.major.y = element_line(linewidth = 0.1, color = "grey94"),
     panel.grid.minor = element_blank())
 g
 
