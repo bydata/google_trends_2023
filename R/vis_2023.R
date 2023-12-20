@@ -25,9 +25,8 @@ replace_lessthan1 <- function(x, num_value = 0.5) {
   ifelse(x == "<1", num_value, as.numeric(x))
 }
 
-
-# Exclude keywords
-excluded_keywords <- c("Wednesday")
+# Exclude keywords if necessary
+excluded_keywords <- c("")
 
 trends_combined <- dfs %>% 
   bind_cols() %>% 
@@ -57,12 +56,7 @@ keywords_by_peak_date <- trends_combined %>%
   arrange(desc(peak_date)) %>%
   mutate(
     row_color = google_colors_desaturated[(row_number() %% length(google_colors) + 1)],
-    # add a colored dot as a guidance in the y-axis labels
-    label = glue::glue(
-      # "{keyword}
-      # <span style='color: {row_color};font-family:Arial;'>\u2022</span>"
-      "<span style='color: {row_color}'>{keyword}</span>"
-      )
+    label = glue::glue("<span style='color: {row_color}'>{keyword}</span>")
   ) %>%
   select(-row_color)
 
